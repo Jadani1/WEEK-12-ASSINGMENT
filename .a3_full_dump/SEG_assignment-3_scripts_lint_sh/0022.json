@@ -1,0 +1,1 @@
+"t.sh; do\n    [[ -f \"${s}\" ]] || continue\n    # SC1091: sourced files; "

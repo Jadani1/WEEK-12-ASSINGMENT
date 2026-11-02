@@ -1,0 +1,1 @@
+"  echo \"========== Host Check ==========\"\n  echo \"Host: ${host}\"\n\n  if"

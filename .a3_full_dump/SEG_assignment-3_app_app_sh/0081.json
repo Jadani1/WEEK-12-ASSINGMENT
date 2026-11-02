@@ -1,0 +1,1 @@
+"_num}\" >/dev/null 2>&1; then\n      ok=0\n    fi\n  elif command -v timeo"

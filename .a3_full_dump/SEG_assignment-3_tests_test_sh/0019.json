@@ -1,0 +1,1 @@
+" ===\"\necho \"App: ${APP}\"\necho\n\n# 1) help\nbold \"[1] help\"\nrc=0\nout=\"$(\""

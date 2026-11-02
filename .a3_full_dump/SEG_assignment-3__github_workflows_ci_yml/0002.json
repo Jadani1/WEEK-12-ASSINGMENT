@@ -1,0 +1,1 @@
+"ploy)\nname: CI\n\non:\n  push:\n  pull_request:\n\njobs:\n  validate:\n    nam"

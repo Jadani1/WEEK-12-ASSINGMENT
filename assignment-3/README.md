@@ -112,7 +112,9 @@ git add -A && git commit -m "demo: break tests" && git push -u origin ci-fail-de
 git checkout main   # or master
 ```
 
-> If this folder is not yet its own GitHub repository, initialize one, push, and enable Actions. The workflow file is already present under `.github/workflows/ci.yml`.
+> **Monorepo (Week 12 root):** GitHub Actions only loads workflows from the **repository root**. This monorepo wires CI at `../.github/workflows/ci.yml` with `working-directory: assignment-3` (same validate → test → docker jobs). Keep this folder’s `.github/workflows/ci.yml` for the required layout.
+>
+> **Standalone repo:** If you push **only** `assignment-3` as its own GitHub repository, the workflow under `.github/workflows/ci.yml` in this folder is used. Initialize the repo, push, and enable Actions.
 
 ## Grading
 

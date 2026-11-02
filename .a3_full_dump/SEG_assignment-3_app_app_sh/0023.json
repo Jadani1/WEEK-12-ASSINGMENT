@@ -1,0 +1,1 @@
+"o unknown)\"\n\n  if [[ -r /proc/uptime ]]; then\n    local secs d h m\n   "

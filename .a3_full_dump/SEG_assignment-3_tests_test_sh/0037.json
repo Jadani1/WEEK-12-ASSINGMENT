@@ -1,0 +1,1 @@
+"_exit \"check-port without port exits 2\" 2 \"${rc}\"\necho\n\n# 7) check-por"

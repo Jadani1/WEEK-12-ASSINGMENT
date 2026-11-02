@@ -1,0 +1,1 @@
+"2>/dev/null || date)\"\n\n  if [[ -r /etc/os-release ]]; then\n    # shell"

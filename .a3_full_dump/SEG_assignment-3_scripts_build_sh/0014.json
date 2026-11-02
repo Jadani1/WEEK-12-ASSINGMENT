@@ -1,0 +1,1 @@
+"grep -qiE 'usage|system-info|check-host' <<<\"${out}\"; then\n  pass \"doc"

@@ -1,0 +1,1 @@
+"haviour ===\"\nAPP=\"app/app.sh\"\nchmod +x \"${APP}\" 2>/dev/null || true\nif"

@@ -1,0 +1,1 @@
+"r f in app/app.sh scripts/lint.sh scripts/build.sh tests/test.sh grade"

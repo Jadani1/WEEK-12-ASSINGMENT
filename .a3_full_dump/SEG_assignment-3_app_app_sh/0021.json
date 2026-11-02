@@ -1,0 +1,1 @@
+"${NAME:-Linux} ${VERSION_ID:-}}\"\n  else\n    os_val=\"$(uname -s 2>/dev/"

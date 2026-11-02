@@ -1,0 +1,1 @@
+"rt_contains \"help shows Usage\" \"Usage\" \"${out}\"\nassert_contains \"help "

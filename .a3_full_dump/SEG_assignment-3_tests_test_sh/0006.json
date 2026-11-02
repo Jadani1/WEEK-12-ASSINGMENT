@@ -1,0 +1,1 @@
+"{ROOT}/app/app.sh\"\n\nPASS=0\nFAIL=0\n\ngreen() { printf '\\033[32m%s\\033[0m"

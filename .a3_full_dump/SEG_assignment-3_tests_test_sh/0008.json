@@ -1,0 +1,1 @@
+"rintf '\\033[1m%s\\033[0m\\n' \"$*\"; }\n\nassert_exit() {\n  local name=\"$1\" "

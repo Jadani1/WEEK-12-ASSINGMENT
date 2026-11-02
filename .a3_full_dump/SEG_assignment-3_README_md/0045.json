@@ -1,0 +1,1 @@
+"\nchmod +x grade.sh app/*.sh scripts/*.sh tests/*.sh\n./grade.sh\n```\n\nTh"

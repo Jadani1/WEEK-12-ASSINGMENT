@@ -1,0 +1,1 @@
+"; then\n    pass \"executable-or-gitbash: ${f}\"\n  else\n    fail \"not exe"

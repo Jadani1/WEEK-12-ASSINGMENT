@@ -1,0 +1,1 @@
+"[ -f \"${WF}\" ]]; then\n  grep -qE 'push:' \"${WF}\" && pass \"workflow on:"

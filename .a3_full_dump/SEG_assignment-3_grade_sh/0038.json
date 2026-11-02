@@ -1,0 +1,1 @@
+"  if grep -A20 -E '^[[:space:]]*docker:' \"${WF}\" | grep -q 'test'; the"

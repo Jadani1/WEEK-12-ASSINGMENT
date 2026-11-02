@@ -3,13 +3,10 @@
 #   docker compose run --rm devops system-info
 #   docker compose run --rm devops check-host example.com
 #   docker compose run --rm devops check-port example.com 443
-
 services:
   devops:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: devops-tool:latest
-    container_name: devops-tool
+    build: .
+    image: devops-tool
+    entrypoint: ["/app/app.sh"]
     command: ["help"]
     network_mode: bridge

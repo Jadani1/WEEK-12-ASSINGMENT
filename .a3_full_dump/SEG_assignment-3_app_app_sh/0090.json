@@ -1,0 +1,1 @@
+"usage >&2\n    exit 2\n  fi\n\n  shift || true\n\n  case \"${cmd}\" in\n    sys"

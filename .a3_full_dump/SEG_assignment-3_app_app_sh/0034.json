@@ -1,0 +1,1 @@
+":/ {print $2}' /proc/meminfo)\"\n    if [[ -n \"${mem_total}\" && -n \"${me"

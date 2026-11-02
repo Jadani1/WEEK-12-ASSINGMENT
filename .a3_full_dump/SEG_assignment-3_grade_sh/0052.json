@@ -1,0 +1,1 @@
+"nvalid command → 2\" || fail \"invalid command → ${rc}\"\n\n  rc=0; out=\"$("

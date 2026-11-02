@@ -1,0 +1,1 @@
+"ert_exit \"system-info exits 0\" 0 \"${rc}\"\nassert_contains \"system-info "

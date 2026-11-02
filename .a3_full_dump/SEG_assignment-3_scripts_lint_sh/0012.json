@@ -1,0 +1,1 @@
+"${f}\" ]]; then\n    pass \"exists ${f}\"\n  else\n    fail \"missing ${f}\"\n "

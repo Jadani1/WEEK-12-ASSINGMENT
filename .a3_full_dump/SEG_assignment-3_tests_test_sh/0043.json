@@ -1,0 +1,1 @@
+"9999 2>&1)\" || rc=$?\nassert_exit \"check-port 99999 exits 2\" 2 \"${rc}\"\n"

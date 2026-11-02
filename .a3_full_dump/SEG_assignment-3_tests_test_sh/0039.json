@@ -1,0 +1,1 @@
+"\"${APP}\" check-port 127.0.0.1 abc 2>&1)\" || rc=$?\nassert_exit \"check-p"

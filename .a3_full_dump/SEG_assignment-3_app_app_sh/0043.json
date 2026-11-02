@@ -1,0 +1,1 @@
+"}\n\n# ---------- check-host ----------\ncmd_check_host() {\n  local host="

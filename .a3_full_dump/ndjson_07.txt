@@ -1,0 +1,8 @@
+{"file":"assignment-3/Dockerfile","len":418,"n":416}
+"# devops-tool — lightweight image for the Assignment 3 Bash "
+"CLI\nFROM alpine:3.20\n\nRUN apk add --no-cache \\\n    bash \\\n  "
+"  coreutils \\\n    procps \\\n    iproute2 \\\n    iputils \\\n    "
+"bind-tools \\\n    busybox-extras\n\nWORKDIR /app\n\nCOPY app/app."
+"sh /app/app.sh\n\nRUN chmod +x /app/app.sh \\\n    && ln -sf /ap"
+"p/app.sh /usr/local/bin/devops-tool\n\n# Prefer calling the CL"
+"I by image args\nENTRYPOINT [\"/app/app.sh\"]\nCMD [\"help\"]\n"

@@ -1,0 +1,1 @@
+" push\" || fail \"workflow missing push\"\n  grep -qE 'pull_request:' \"${W"

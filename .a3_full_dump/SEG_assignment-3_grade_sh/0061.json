@@ -1,0 +1,1 @@
+"exit / test markers roughly\n  count=\"$(grep -cE 'assert_exit|PASS|\\\\[\\"

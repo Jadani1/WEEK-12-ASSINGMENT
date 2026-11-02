@@ -1,0 +1,1 @@
+"\"${1:-}\"\n\n  if [[ -z \"${host}\" ]]; then\n    err \"check-host requires a"

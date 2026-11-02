@@ -1,0 +1,1 @@
+"\n    fail \"no git commits\"\n  fi\nelse\n  echo \"  (not a git repo — skip "

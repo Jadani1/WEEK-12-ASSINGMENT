@@ -1,0 +1,1 @@
+"ipts/lint.sh ]]; then\n  if bash scripts/lint.sh >/tmp/a3-lint.out 2>&1"

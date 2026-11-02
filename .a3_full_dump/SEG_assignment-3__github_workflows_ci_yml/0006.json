@@ -1,0 +1,1 @@
+"s/*.sh\n\n      - name: Run lint\n        run: ./scripts/lint.sh\n\n  test:"

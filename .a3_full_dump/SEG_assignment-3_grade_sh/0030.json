@@ -1,0 +1,1 @@
+"ce:]]*${job}:\" \"${WF}\" \\\n      && pass \"job present: ${job}\" \\\n      |"

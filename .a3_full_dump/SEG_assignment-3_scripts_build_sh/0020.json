@@ -1,0 +1,1 @@
+"(docker run --rm \"${IMAGE}\" 2>&1)\" || rc=$?\nif [[ \"${rc}\" -eq 0 ]]; th"

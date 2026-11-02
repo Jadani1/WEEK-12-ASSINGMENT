@@ -1,0 +1,1 @@
+"en\n    resolved=\"$(nslookup \"${host}\" 2>/dev/null | awk '/^Address: / "

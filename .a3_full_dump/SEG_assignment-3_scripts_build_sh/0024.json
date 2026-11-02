@@ -1,0 +1,1 @@
+"}\" -eq 2 ]]; then\n  pass \"docker run invalid command (exit 2)\"\nelse\n  "

@@ -162,15 +162,18 @@ fi
 echo
 
 bold "=== Docker build / smoke ==="
-if command -v docker >/dev/null 2>&1; then
+if ! command -v docker >/dev/null 2>&1; then
+  echo "  (docker CLI not available — skip build.sh)"
+elif ! docker info >/dev/null 2>&1; then
+  # CLI present but engine stopped (common on Windows/macOS without Docker Desktop)
+  echo "  (docker daemon not running — skip build.sh; start Docker Desktop to verify)"
+else
   if bash scripts/build.sh >/tmp/a3-build.out 2>&1; then
     pass "scripts/build.sh passed"
   else
     fail "scripts/build.sh failed"
     tail -n 40 /tmp/a3-build.out 2>/dev/null || true
   fi
-else
-  echo "  (docker not available — skip build.sh)"
 fi
 echo
 

@@ -1,0 +1,1 @@
+"ops-tool check-host 127.0.0.1\ndocker run --rm devops-tool check-port e"

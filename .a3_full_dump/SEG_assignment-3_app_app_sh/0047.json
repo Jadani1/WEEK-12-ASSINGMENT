@@ -1,0 +1,1 @@
+"   err \"invalid host: ${host}\"\n    return 2\n  fi\n\n  local resolved=\"\"\n"

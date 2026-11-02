@@ -1,0 +1,1 @@
+"c=0\nout=\"$(\"${APP}\" 2>&1)\" || rc=$?\nassert_exit \"no command exits 2\" 2"

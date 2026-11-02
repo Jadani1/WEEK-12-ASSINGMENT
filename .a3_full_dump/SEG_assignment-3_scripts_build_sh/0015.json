@@ -1,0 +1,1 @@
+"ker run help (exit 0)\"\nelse\n  fail \"docker run help (exit ${rc})\"\nfi\n\n"

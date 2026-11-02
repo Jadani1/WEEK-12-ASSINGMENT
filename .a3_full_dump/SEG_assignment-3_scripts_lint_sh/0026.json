@@ -1,0 +1,1 @@
+" CI stays strict if installed\n      fail \"shellcheck ${s}\"\n      cat /"

@@ -1,0 +1,1 @@
+"-q '^#!'; then\n    pass \"shebang: ${f}\"\n  else\n    fail \"shebang: ${f}"

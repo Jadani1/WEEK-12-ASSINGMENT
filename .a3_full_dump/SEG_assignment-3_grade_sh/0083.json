@@ -1,0 +1,1 @@
+"\necho \"Failed: ${FAIL}\"\nrm -f /tmp/a3-tests.out /tmp/a3-lint.out /tmp/"

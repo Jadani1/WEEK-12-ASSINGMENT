@@ -1,0 +1,1 @@
+"m_avail}\" ]]; then\n      mem_used=$((mem_total - mem_avail))\n    else\n"

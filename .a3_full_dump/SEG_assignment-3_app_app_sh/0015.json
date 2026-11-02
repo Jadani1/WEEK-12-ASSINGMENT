@@ -1,0 +1,1 @@
+"l kernel_val uptime_val\n  local cpu_val mem_total mem_avail mem_used\n\n"

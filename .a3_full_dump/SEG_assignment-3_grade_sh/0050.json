@@ -1,0 +1,1 @@
+"& pass \"system-info → 0\" || fail \"system-info → ${rc}\"\n\n  rc=0; out=\"$"

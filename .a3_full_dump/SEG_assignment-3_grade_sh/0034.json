@@ -1,0 +1,1 @@
+"f grep -A20 -E '^[[:space:]]*test:' \"${WF}\" | grep -q 'validate'; then"

@@ -1,0 +1,1 @@
+"  return 2\n  fi\n\n  if [[ ! \"${host}\" =~ ^[A-Za-z0-9._:/-]+$ ]]; then\n "

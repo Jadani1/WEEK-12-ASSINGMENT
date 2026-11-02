@@ -1,0 +1,1 @@
+".sh; do\n  if [[ -f \"${f}\" ]] && bash -n \"${f}\" 2>/dev/null; then\n    p"

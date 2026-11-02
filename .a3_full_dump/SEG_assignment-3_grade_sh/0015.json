@@ -1,0 +1,1 @@
+"s/test.sh grade.sh; do\n  if [[ -f \"${f}\" ]] && head -n1 \"${f}\" | grep "

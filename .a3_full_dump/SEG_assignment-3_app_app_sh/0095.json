@@ -1,0 +1,1 @@
+"{cmd}\"\n      usage >&2\n      exit 2\n      ;;\n  esac\n}\n\nmain \"$@\"\n"

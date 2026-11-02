@@ -1,0 +1,1 @@
+"\n**/*.tmp\n**/*~\n.tmp/\ntmp/\ntemp/\n.cache/\n\n# Editor / OS\n.vscode/\n.idea"

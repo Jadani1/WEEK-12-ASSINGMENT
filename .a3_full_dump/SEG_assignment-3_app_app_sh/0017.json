@@ -1,0 +1,1 @@
+"l || echo unknown)\"\n  user_val=\"$(whoami 2>/dev/null || id -un 2>/dev/"

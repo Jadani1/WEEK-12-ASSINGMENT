@@ -1,0 +1,1 @@
+"host)\n      cmd_check_host \"$@\"\n      exit $?\n      ;;\n    check-port)"

@@ -1,0 +1,8 @@
+{"file":"assignment-3/.dockerignore","len":378,"n":378}
+"# VCS\n.git\n.gitignore\n**/.git\n\n# Docs / meta\nREADME.md\n*.md\n"
+"\n# CI / host-side tooling (not needed inside the image)\n.git"
+"hub/\nscripts/\ntests/\ngrade.sh\n\n# Compose is host-side\ncompos"
+"e.yaml\ncompose.yml\ndocker-compose.yml\ndocker-compose.yaml\n\n#"
+" Logs and temporary files\nlogs/\n**/*.log\n**/*.tmp\n**/*~\n.tmp"
+"/\ntmp/\ntemp/\n.cache/\n\n# Editor / OS\n.vscode/\n.idea/\n.DS_Stor"
+"e\nThumbs.db\n*.bak\n"

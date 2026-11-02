@@ -1,0 +1,1 @@
+"tem-info)\n      cmd_system_info \"$@\"\n      exit $?\n      ;;\n    check-"

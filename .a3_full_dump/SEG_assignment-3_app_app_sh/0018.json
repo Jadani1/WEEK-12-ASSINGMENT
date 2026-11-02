@@ -1,0 +1,1 @@
+"null || echo unknown)\"\n  datetime_val=\"$(date '+%Y-%m-%d %H:%M:%S %Z' "

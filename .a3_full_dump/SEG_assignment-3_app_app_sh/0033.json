@@ -1,0 +1,1 @@
+"otal:/ {print $2}' /proc/meminfo)\"\n    mem_avail=\"$(awk '/MemAvailable"

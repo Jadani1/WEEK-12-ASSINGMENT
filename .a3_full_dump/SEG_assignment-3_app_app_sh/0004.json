@@ -1,0 +1,1 @@
+"uo pipefail\n\nAPP_NAME=\"devops-tool\"\nVERSION=\"1.0.0\"\n\nusage() {\n  cat <"

@@ -1,0 +1,1 @@
+"fi\n}\n\nif [[ ! -x \"${APP}\" && -f \"${APP}\" ]]; then\n  chmod +x \"${APP}\" "

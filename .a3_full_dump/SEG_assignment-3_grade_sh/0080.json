@@ -1,0 +1,1 @@
+" -ge 1 ]]; then\n    pass \"git history has ${commits} commit(s)\"\n  else"

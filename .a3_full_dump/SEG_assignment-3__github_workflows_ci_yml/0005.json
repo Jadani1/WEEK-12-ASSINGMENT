@@ -1,0 +1,1 @@
+"s executable\n        run: chmod +x grade.sh app/*.sh scripts/*.sh test"

@@ -1,0 +1,1 @@
+"port\"\nrc=0\nout=\"$(\"${APP}\" check-port 127.0.0.1 2>&1)\" || rc=$?\nassert"

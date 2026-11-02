@@ -1,0 +1,58 @@
+# Week 12 monorepo CI — Assignment 3
+# GitHub only loads workflows from the repository root .github/workflows/.
+# The copy under assignment-3/.github/workflows/ci.yml satisfies the assignment
+# layout and is used when assignment-3 is pushed as its own repository.
+name: Assignment 3 CI
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: assignment-3
+
+jobs:
+  validate:
+    name: Validate (lint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x grade.sh app/*.sh scripts/*.sh tests/*.sh
+
+      - name: Run lint
+        run: ./scripts/lint.sh
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x grade.sh app/*.sh scripts/*.sh tests/*.sh
+
+      - name: Run application tests
+        run: ./tests/test.sh
+
+  docker:
+    name: Docker build & smoke
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x grade.sh app/*.sh scripts/*.sh tests/*.sh
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image and smoke test
+        run: ./scripts/build.sh

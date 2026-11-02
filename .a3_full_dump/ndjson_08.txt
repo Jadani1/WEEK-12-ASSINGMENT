@@ -1,0 +1,9 @@
+{"file":"assignment-3/compose.yaml","len":425,"n":425}
+"# Local run via Docker Compose\n#   docker compose run --rm d"
+"evops help\n#   docker compose run --rm devops system-info\n# "
+"  docker compose run --rm devops check-host example.com\n#   "
+"docker compose run --rm devops check-port example.com 443\n\ns"
+"ervices:\n  devops:\n    build:\n      context: .\n      dockerf"
+"ile: Dockerfile\n    image: devops-tool:latest\n    container_"
+"name: devops-tool\n    command: [\"help\"]\n    network_mode: br"
+"idge\n"

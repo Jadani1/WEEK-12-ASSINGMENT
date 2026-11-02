@@ -1,0 +1,1 @@
+"ck -x \"${s}\" 2>/tmp/lint-sc.err; then\n      pass \"shellcheck ${s}\"\n   "

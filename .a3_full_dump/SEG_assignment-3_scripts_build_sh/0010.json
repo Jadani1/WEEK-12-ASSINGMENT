@@ -1,0 +1,1 @@
+"t \"${IMAGE}\" . ; then\n  pass \"docker build -t ${IMAGE} .\"\nelse\n  fail "

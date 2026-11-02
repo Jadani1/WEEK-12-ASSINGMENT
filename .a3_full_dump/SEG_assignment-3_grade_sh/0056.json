@@ -1,0 +1,1 @@
+"s \"non-numeric port → 2\" || fail \"non-numeric port → ${rc}\"\n\n  rc=0; o"

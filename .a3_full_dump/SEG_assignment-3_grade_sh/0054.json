@@ -1,0 +1,1 @@
+"sing host → 2\" || fail \"missing host → ${rc}\"\n\n  rc=0; out=\"$(\"${APP}\""

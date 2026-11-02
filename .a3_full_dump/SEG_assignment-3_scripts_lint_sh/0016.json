@@ -1,0 +1,1 @@
+"n\n    fail \"skip bash -n (missing): ${s}\"\n    continue\n  fi\n  if bash "

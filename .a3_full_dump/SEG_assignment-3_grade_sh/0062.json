@@ -1,0 +1,1 @@
+"\\d+\\\\]' tests/test.sh 2>/dev/null || echo 0)\"\n  if [[ \"${count}\" -ge 8"

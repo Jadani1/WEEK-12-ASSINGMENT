@@ -1,0 +1,1 @@
+"t \"${host}\" 2>/dev/null | awk '/has address/ {print $4; exit}')\"\n  fi\n"

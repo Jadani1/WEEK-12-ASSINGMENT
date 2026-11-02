@@ -1,0 +1,1 @@
+" \"[9] check-port missing host\"\nrc=0\nout=\"$(\"${APP}\" check-port 2>&1)\" "

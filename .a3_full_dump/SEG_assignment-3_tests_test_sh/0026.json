@@ -1,0 +1,1 @@
+"3] invalid command\"\nrc=0\nout=\"$(\"${APP}\" totally-invalid 2>&1)\" || rc="

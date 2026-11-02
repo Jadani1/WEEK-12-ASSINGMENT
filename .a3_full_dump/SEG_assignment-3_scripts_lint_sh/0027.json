@@ -1,0 +1,1 @@
+"tmp/lint-sc.err >&2 || true\n    fi\n  done\n  rm -f /tmp/lint-sc.err 2>/"

@@ -1,0 +1,1 @@
+"uinfo ]]; then\n    cpu_val=\"$(grep -m1 'model name' /proc/cpuinfo 2>/d"

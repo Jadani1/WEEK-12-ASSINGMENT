@@ -1,0 +1,1 @@
+"# system-info\nrc=0\nout=\"$(docker run --rm \"${IMAGE}\" system-info 2>&1)"

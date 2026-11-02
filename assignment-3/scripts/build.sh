@@ -22,6 +22,11 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! docker info >/dev/null 2>&1; then
+  red "docker daemon is not running — start Docker Desktop, then re-run ./scripts/build.sh"
+  exit 1
+fi
+
 bold "=== docker build ==="
 if docker build -t "${IMAGE}" . ; then
   pass "docker build -t ${IMAGE} ."

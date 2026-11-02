@@ -1,0 +1,1 @@
+"0 ]]; then\n  red \"Docker build/smoke tests failed.\"\n  exit 1\nfi\ngreen "

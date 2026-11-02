@@ -1,0 +1,1 @@
+"\"\n    FAIL=$((FAIL + 1))\n  fi\n}\n\nassert_contains() {\n  local name=\"$1\""

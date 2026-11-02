@@ -1,0 +1,1 @@
+"directly\n\n```bash\ndocker build -t devops-tool .\ndocker run --rm devops"

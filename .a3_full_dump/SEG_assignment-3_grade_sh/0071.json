@@ -1,0 +1,1 @@
+".sh failed\"\n    tail -n 20 /tmp/a3-lint.out 2>/dev/null || true\n  fi\ne"

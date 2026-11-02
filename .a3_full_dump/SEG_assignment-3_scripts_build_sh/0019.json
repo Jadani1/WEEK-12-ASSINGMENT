@@ -1,0 +1,1 @@
+"il \"docker run system-info (exit ${rc})\"\nfi\n\n# default CMD\nrc=0\nout=\"$"
