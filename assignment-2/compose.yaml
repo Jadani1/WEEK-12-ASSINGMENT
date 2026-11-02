@@ -1,0 +1,18 @@
+# Run the diagnostic CLI locally with Docker Compose
+# Examples:
+#   docker compose run --rm diagnostic system
+#   docker compose run --rm diagnostic disk
+#   docker compose run --rm diagnostic network 1.1.1.1
+#   docker compose run --rm diagnostic help
+
+services:
+  diagnostic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: diagnostic-tool:latest
+    container_name: diagnostic-tool
+    # Default command; overridden by: docker compose run ... <command>
+    command: ["help"]
+    # Network checks need outbound connectivity
+    network_mode: bridge

@@ -1,0 +1,36 @@
+# VCS
+.git
+.gitignore
+**/.git
+
+# Docs / meta (not needed in image)
+README.md
+*.md
+
+# Tests and grading (run on host against the image)
+test.sh
+grade.sh
+
+# Compose is host-side
+compose.yaml
+compose.yml
+docker-compose.yml
+docker-compose.yaml
+
+# Logs and temporary / local files
+logs/
+**/*.log
+**/*.tmp
+**/*.swp
+**/*~
+.tmp/
+tmp/
+temp/
+.cache/
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.bak
