@@ -1,1 +1,0 @@
-"\"${APP}\" check-host 2>&1)\" || rc=$?\n  [[ \"${rc}\" -eq 2 ]] && pass \"mis"

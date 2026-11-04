@@ -1,1 +1,0 @@
-"out 2>/dev/null || true\n  fi\nelse\n  echo \"  (docker not available — sk"

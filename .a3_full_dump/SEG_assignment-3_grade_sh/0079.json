@@ -1,1 +1,0 @@
-"git rev-list --count HEAD 2>/dev/null || echo 0)\"\n  if [[ \"${commits}\""

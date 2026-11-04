@@ -1,1 +1,0 @@
-"; then\n    pass \"scripts/lint.sh passed\"\n  else\n    fail \"scripts/lint"

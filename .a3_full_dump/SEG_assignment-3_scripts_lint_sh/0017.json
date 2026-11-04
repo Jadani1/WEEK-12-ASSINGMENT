@@ -1,1 +1,0 @@
-"-n \"${s}\" 2>/tmp/lint-bash-n.err; then\n    pass \"bash -n ${s}\"\n  else\n"

@@ -1,1 +1,0 @@
-"  [[ \"${rc}\" -eq 0 ]] && pass \"help → 0\" || fail \"help → ${rc}\"\n\n  rc="

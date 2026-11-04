@@ -1,1 +1,0 @@
-"' <<<\"${out}\"; then\n  pass \"docker run system-info (exit 0)\"\nelse\n  fa"

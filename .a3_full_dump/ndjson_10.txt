@@ -1,2 +1,0 @@
-{"file":"README.md","len":21,"n":21}
-"# WEEK-12-ASSINGMENT\n"

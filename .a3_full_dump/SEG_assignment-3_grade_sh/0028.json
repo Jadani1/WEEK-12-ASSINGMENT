@@ -1,1 +1,0 @@
-"F}\" && pass \"workflow on: pull_request\" || fail \"workflow missing pull"

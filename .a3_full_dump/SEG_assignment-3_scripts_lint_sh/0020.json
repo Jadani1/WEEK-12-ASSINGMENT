@@ -1,1 +1,0 @@
-"nt: optional ShellCheck ===\"\nif command -v shellcheck >/dev/null 2>&1;"

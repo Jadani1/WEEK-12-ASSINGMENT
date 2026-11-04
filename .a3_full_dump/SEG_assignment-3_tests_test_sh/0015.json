@@ -1,1 +1,0 @@
-"  red \"  FAIL  ${name} (missing: ${needle})\"\n    FAIL=$((FAIL + 1))\n  "

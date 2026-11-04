@@ -1,1 +1,0 @@
-"\"\n    tail -n 30 /tmp/a3-tests.out 2>/dev/null || true\n  fi\nelse\n  fai"

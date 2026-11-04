@@ -1,1 +1,0 @@
-"name: Make scripts executable\n        run: chmod +x grade.sh app/*.sh "

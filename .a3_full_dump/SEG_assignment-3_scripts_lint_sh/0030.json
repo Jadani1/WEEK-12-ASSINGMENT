@@ -1,1 +1,0 @@
-"ed: ${FAIL}\"\n\nif [[ \"${FAIL}\" -gt 0 ]]; then\n  red \"Lint failed.\"\n  ex"

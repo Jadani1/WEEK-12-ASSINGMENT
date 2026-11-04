@@ -1,1 +1,0 @@
-"\"docker build failed\"\n  echo \"Passed: ${PASS}  Failed: ${FAIL}\"\n  exit"

@@ -1,1 +1,0 @@
-"    fail \"bash -n ${s}\"\n    cat /tmp/lint-bash-n.err >&2 || true\n  fi\n"

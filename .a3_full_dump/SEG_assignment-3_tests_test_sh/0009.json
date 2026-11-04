@@ -1,1 +1,0 @@
-"expected=\"$2\" actual=\"$3\"\n  if [[ \"${actual}\" -eq \"${expected}\" ]]; th"

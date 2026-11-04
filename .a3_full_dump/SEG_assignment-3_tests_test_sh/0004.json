@@ -1,1 +1,0 @@
-"ric port, out-of-range port\nset -u\n\nSCRIPT_DIR=\"$(cd \"$(dirname \"${BAS"

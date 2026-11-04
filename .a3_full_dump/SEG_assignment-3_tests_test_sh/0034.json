@@ -1,1 +1,0 @@
-"s 0\" 0 \"${rc}\"\nassert_contains \"check-host shows host\" \"127.0.0.1\" \"${"

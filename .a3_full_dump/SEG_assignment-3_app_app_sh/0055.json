@@ -1,1 +1,0 @@
-"  if [[ -z \"${resolved}\" ]] && command -v nslookup >/dev/null 2>&1; th"

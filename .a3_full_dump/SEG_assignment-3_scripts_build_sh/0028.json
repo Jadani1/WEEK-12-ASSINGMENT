@@ -1,1 +1,0 @@
-" check-host without host (exit 2)\"\nelse\n  fail \"docker run check-host "

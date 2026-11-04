@@ -1,1 +1,0 @@
-" secs=\"$(awk '{print int($1)}' /proc/uptime)\"\n    d=$((secs / 86400))\n"

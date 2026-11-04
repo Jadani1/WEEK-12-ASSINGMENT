@@ -1,1 +1,0 @@
-"l \"missing tests/test.sh\"\nfi\necho\n\nbold \"=== Linting ===\"\nif [[ -f scr"

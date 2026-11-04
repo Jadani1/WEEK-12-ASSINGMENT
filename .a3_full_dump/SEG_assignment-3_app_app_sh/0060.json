@@ -1,1 +1,0 @@
-"  resolved=\"${host}\"\n  fi\n\n  if [[ -n \"${resolved}\" ]]; then\n    echo "

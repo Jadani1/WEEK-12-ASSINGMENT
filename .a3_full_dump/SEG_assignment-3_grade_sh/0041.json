@@ -1,1 +1,0 @@
-"-q 'lint.sh' \"${WF}\" && pass \"workflow runs lint.sh\" || fail \"workflow"

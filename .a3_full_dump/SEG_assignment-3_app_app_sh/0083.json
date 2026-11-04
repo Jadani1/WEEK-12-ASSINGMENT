@@ -1,1 +1,0 @@
-"eout 3 bash -c \"echo >/dev/tcp/${host}/${port_num}\" >/dev/null 2>&1; t"

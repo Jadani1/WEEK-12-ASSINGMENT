@@ -1,1 +1,0 @@
-"  hostname_val=\"$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/nul"

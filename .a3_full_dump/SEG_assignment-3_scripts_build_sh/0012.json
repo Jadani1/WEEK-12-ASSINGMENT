@@ -1,1 +1,0 @@
-" 1\nfi\n\necho\nbold \"=== docker smoke tests ===\"\n\n# help\nrc=0\nout=\"$(dock"

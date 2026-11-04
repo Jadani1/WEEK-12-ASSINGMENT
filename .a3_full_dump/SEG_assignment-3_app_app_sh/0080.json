@@ -1,1 +1,0 @@
-"ommand -v nc >/dev/null 2>&1; then\n    if nc -z -w 3 \"${host}\" \"${port"

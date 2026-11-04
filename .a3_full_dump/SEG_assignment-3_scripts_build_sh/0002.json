@@ -1,1 +1,0 @@
-"ocker smoke tests\nset -u\n\nSCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0"

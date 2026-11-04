@@ -1,1 +1,0 @@
-" available\"\n  exit 1\nfi\n\nbold \"=== docker build ===\"\nif docker build -"

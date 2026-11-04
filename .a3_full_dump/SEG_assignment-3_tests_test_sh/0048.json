@@ -1,1 +1,0 @@
-"|| rc=$?\nassert_exit \"check-port without args exits 2\" 2 \"${rc}\"\necho\n"

@@ -1,1 +1,0 @@
-"AGE=\"${IMAGE:-devops-tool}\"\nPASS=0\nFAIL=0\n\ngreen() { printf '\\033[32m%"

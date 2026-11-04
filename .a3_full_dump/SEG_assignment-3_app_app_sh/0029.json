@@ -1,1 +1,0 @@
-"ev/null | cut -d: -f2- | sed 's/^ //')\"\n    [[ -z \"${cpu_val}\" ]] && c"

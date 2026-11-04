@@ -1,1 +1,0 @@
-")\"\n  fi\n\n  if [[ -r /proc/meminfo ]]; then\n    mem_total=\"$(awk '/MemT"

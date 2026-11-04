@@ -1,1 +1,0 @@
-"assert_contains \"out-of-range message\" \"range\" \"${out}\"\n\nrc=0\nout=\"$(\""

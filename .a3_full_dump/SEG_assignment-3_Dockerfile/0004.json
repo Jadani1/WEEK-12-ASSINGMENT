@@ -1,1 +1,0 @@
-"s\n\nWORKDIR /app\n\nCOPY app/app.sh /app/app.sh\n\nRUN chmod +x /app/app.sh"

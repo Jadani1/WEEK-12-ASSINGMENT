@@ -1,1 +1,0 @@
-".sh >/tmp/a3-build.out 2>&1; then\n    pass \"scripts/build.sh passed\"\n "

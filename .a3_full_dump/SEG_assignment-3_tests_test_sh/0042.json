@@ -1,1 +1,0 @@
-"] check-port out-of-range\"\nrc=0\nout=\"$(\"${APP}\" check-port 127.0.0.1 9"

@@ -1,1 +1,0 @@
-" -eq 2 ]] && pass \"out-of-range port → 2\" || fail \"out-of-range port →"

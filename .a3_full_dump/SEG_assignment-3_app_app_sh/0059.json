@@ -1,1 +1,0 @@
-"st}\"\n  fi\n  if [[ -z \"${resolved}\" ]] && [[ \"${host}\" =~ : ]]; then\n  "

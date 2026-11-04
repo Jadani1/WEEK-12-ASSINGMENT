@@ -1,1 +1,0 @@
-"[1m%s\\033[0m\\n' \"$*\"; }\n\npass() { green \"  PASS  $*\"; PASS=$((PASS + 1"

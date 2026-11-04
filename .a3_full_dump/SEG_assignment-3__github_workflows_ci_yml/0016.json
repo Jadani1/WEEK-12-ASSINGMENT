@@ -1,1 +1,0 @@
-"on@v3\n\n      - name: Build image and smoke test\n        run: ./scripts"

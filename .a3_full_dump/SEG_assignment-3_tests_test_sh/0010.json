@@ -1,1 +1,0 @@
-"en\n    green \"  PASS  ${name} (exit ${actual})\"\n    PASS=$((PASS + 1))"

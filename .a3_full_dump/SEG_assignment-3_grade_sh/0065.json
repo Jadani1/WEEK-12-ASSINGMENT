@@ -1,1 +1,0 @@
-"\n  fi\n  if bash tests/test.sh >/tmp/a3-tests.out 2>&1; then\n    pass \""

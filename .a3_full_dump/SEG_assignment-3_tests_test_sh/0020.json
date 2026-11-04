@@ -1,1 +1,0 @@
-"${APP}\" help 2>&1)\" || rc=$?\nassert_exit \"help exits 0\" 0 \"${rc}\"\nasse"

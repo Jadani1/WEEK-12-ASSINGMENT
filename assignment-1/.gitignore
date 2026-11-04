@@ -1,0 +1,2 @@
+# Runtime logs (keep directory via .gitkeep)
+logs/*.log

@@ -1,1 +1,0 @@
-"github/workflows/ci.yml\"\n)\n\nfor f in \"${REQUIRED[@]}\"; do\n  if [[ -f \""

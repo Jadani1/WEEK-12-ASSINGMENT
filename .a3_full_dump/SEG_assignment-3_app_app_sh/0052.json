@@ -1,1 +1,0 @@
-"ig +short \"${host}\" A 2>/dev/null | head -n1)\"\n  fi\n  if [[ -z \"${reso"

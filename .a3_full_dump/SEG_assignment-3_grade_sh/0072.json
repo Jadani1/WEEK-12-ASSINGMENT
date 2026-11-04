@@ -1,1 +1,0 @@
-"lse\n  fail \"missing lint.sh\"\nfi\necho\n\nbold \"=== Docker build / smoke ="

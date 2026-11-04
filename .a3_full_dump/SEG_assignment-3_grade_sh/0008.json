@@ -1,1 +1,0 @@
-"\n  if [[ -f \"$1\" ]]; then pass \"exists: $1\"; else fail \"missing: $1\"; "

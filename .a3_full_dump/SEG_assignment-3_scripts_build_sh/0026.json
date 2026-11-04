@@ -1,1 +1,0 @@
-"ost on check-host → exit 2\nrc=0\nout=\"$(docker run --rm \"${IMAGE}\" chec"

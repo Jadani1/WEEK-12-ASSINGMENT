@@ -1,1 +1,0 @@
-"ext: .\n      dockerfile: Dockerfile\n    image: devops-tool:latest\n    "

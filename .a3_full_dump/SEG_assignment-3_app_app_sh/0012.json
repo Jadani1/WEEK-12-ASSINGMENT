@@ -1,1 +1,0 @@
-"heck-port example.com 443\n  ${APP_NAME} help\nEOF\n}\n\nerr() {\n  printf '"

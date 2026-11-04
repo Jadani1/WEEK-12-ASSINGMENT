@@ -1,1 +1,0 @@
-"ass \"bash -n ${f}\"\n  else\n    fail \"bash -n ${f}\"\n  fi\ndone\necho\n\nbold"

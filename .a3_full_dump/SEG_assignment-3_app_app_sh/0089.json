@@ -1,1 +1,0 @@
-"=\"${1:-}\"\n\n  if [[ -z \"${cmd}\" ]]; then\n    err \"missing command\"\n    "

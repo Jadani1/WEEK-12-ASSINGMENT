@@ -1,1 +1,0 @@
-"ime_val=\"${d}d ${h}h ${m}m\"\n  else\n    uptime_val=\"$(uptime -p 2>/dev/"

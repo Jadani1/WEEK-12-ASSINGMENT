@@ -1,1 +1,0 @@
-" +x \"${f}\" 2>/dev/null || true\n  if [[ -x \"${f}\" ]] || [[ \"$(uname -s "

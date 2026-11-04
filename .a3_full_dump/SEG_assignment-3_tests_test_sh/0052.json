@@ -1,1 +1,0 @@
-"led: ${FAIL}\"\n\nif [[ \"${FAIL}\" -gt 0 ]]; then\n  red \"Some tests failed"

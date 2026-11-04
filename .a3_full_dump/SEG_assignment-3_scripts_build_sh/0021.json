@@ -1,1 +1,0 @@
-"en\n  pass \"docker run default CMD (exit 0)\"\nelse\n  fail \"docker run de"

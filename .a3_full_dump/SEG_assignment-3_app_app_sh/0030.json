@@ -1,1 +1,0 @@
-"pu_val=\"$(grep -c '^processor' /proc/cpuinfo 2>/dev/null || echo '?') "

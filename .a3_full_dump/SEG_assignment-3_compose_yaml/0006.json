@@ -1,1 +1,0 @@
-"container_name: devops-tool\n    command: [\"help\"]\n    network_mode: br"

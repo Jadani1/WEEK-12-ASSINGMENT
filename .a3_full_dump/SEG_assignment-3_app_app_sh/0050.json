@@ -1,1 +1,0 @@
-" \"${host}\" 2>/dev/null | awk '{print $1; exit}')\"\n  fi\n  if [[ -z \"${r"

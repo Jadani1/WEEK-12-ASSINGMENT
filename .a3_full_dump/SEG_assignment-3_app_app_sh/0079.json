@@ -1,1 +1,0 @@
-"v/tcp/\"${host}\"/\"${port_num}\") >/dev/null 2>&1; then\n    ok=0\n  elif c"

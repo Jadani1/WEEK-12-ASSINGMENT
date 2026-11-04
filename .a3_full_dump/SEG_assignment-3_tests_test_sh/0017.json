@@ -1,1 +1,0 @@
-"2>/dev/null || true\nfi\n\nif [[ ! -f \"${APP}\" ]]; then\n  red \"Missing ap"

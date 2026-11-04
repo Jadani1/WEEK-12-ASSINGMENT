@@ -1,1 +1,0 @@
-"fault CMD (exit ${rc})\"\nfi\n\n# invalid command → exit 2\nrc=0\nout=\"$(doc"

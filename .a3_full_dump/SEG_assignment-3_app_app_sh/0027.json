@@ -1,1 +1,0 @@
-"null || uptime 2>/dev/null || echo unknown)\"\n  fi\n\n  if [[ -r /proc/cp"

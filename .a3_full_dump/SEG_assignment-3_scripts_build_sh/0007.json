@@ -1,1 +1,0 @@
-"\"; PASS=$((PASS + 1)); }\nfail() { red \"  FAIL  $*\"; FAIL=$((FAIL + 1))"

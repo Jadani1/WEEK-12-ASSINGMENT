@@ -1,1 +1,0 @@
-"count})\"\n  else\n    fail \"tests/test.sh looks thin (${count} markers)\""

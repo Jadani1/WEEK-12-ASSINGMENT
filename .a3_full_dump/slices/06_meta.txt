@@ -1,1 +1,0 @@
-{"file":"assignment-3/scripts/lint.sh","len":2136,"parts":11,"w":200}

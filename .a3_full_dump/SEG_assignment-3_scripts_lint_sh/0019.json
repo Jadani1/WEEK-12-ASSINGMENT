@@ -1,1 +1,0 @@
-"done\nrm -f /tmp/lint-bash-n.err 2>/dev/null || true\n\necho\nbold \"=== li"

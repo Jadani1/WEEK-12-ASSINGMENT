@@ -1,1 +1,0 @@
-"CPU(s)\"\n  else\n    cpu_val=\"$(nproc 2>/dev/null || echo unknown) CPU(s"

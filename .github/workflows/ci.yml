@@ -21,6 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 1
           persist-credentials: false
           submodules: false
 
@@ -38,6 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 1
           persist-credentials: false
           submodules: false
 
@@ -55,6 +57,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 1
           persist-credentials: false
           submodules: false
 

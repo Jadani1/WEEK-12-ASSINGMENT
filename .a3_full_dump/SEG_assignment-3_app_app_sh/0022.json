@@ -1,1 +1,0 @@
-"null || echo Linux)\"\n  fi\n\n  kernel_val=\"$(uname -r 2>/dev/null || ech"
