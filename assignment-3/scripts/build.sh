@@ -4,32 +4,31 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-cd "${ROOT}"
+cd "${ROOT}" || exit 1
 
-IMAGE="${IMAGE:-devops-tool}"
+IMAGE="${IMAGE:-devops-tool:a3}"
 PASS=0
 FAIL=0
 
-green() { printf '\033[32m%s\033[0m\n' "$*"; }
-red()   { printf '\033[31m%s\033[0m\n' "$*"; }
-bold()  { printf '\033[1m%s\033[0m\n' "$*"; }
-
+green() { printf '\033[0;32m%s\033[0m\n' "$*"; }
+red() { printf '\033[0;31m%s\033[0m\n' "$*"; }
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
 pass() { green "  PASS  $*"; PASS=$((PASS + 1)); }
 fail() { red "  FAIL  $*"; FAIL=$((FAIL + 1)); }
 
 if ! command -v docker >/dev/null 2>&1; then
-  red "docker is not available"
+  red "docker is not installed or not on PATH"
   exit 1
 fi
 
 if ! docker info >/dev/null 2>&1; then
-  red "docker daemon is not running — start Docker Desktop, then re-run ./scripts/build.sh"
+  red "docker daemon is not running (start Docker Desktop / dockerd)"
   exit 1
 fi
 
 bold "=== docker build ==="
-if docker build -t "${IMAGE}" . ; then
-  pass "docker build -t ${IMAGE} ."
+if docker build -t "${IMAGE}" .; then
+  pass "docker build ${IMAGE}"
 else
   fail "docker build failed"
   echo "Passed: ${PASS}  Failed: ${FAIL}"
@@ -57,13 +56,13 @@ else
   fail "docker run system-info (exit ${rc})"
 fi
 
-# default CMD
+# check-host
 rc=0
-out="$(docker run --rm "${IMAGE}" 2>&1)" || rc=$?
+out="$(docker run --rm "${IMAGE}" check-host 127.0.0.1 2>&1)" || rc=$?
 if [[ "${rc}" -eq 0 ]]; then
-  pass "docker run default CMD (exit 0)"
+  pass "docker run check-host 127.0.0.1 (exit 0)"
 else
-  fail "docker run default CMD (exit ${rc})"
+  fail "docker run check-host (exit ${rc})"
 fi
 
 # invalid command → exit 2
@@ -75,13 +74,13 @@ else
   fail "docker run invalid command (exit ${rc}, want 2)"
 fi
 
-# missing host on check-host → exit 2
+# missing args → exit 2
 rc=0
-out="$(docker run --rm "${IMAGE}" check-host 2>&1)" || rc=$?
+out="$(docker run --rm "${IMAGE}" check-port 2>&1)" || rc=$?
 if [[ "${rc}" -eq 2 ]]; then
-  pass "docker run check-host without host (exit 2)"
+  pass "docker run check-port missing args (exit 2)"
 else
-  fail "docker run check-host without host (exit ${rc}, want 2)"
+  fail "docker run check-port missing args (exit ${rc}, want 2)"
 fi
 
 echo

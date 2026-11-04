@@ -13,10 +13,8 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 COPY app/app.sh /app/app.sh
+RUN chmod +x /app/app.sh
 
-RUN chmod +x /app/app.sh \
-    && ln -sf /app/app.sh /usr/local/bin/devops-tool
-
-# Prefer calling the CLI by image args
+# Default: show help when no command is passed
 ENTRYPOINT ["/app/app.sh"]
 CMD ["help"]

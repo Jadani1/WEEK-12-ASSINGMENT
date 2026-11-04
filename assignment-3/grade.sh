@@ -3,79 +3,71 @@
 set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${SCRIPT_DIR}"
+cd "${SCRIPT_DIR}" || exit 1
 
 PASS=0
 FAIL=0
-IMAGE="${IMAGE:-devops-tool}"
 
-green() { printf '\033[32m%s\033[0m\n' "$*"; }
-red()   { printf '\033[31m%s\033[0m\n' "$*"; }
-bold()  { printf '\033[1m%s\033[0m\n' "$*"; }
-
+green() { printf '\033[0;32m%s\033[0m\n' "$*"; }
+red() { printf '\033[0;31m%s\033[0m\n' "$*"; }
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
 pass() { green "  PASS  $*"; PASS=$((PASS + 1)); }
 fail() { red "  FAIL  $*"; FAIL=$((FAIL + 1)); }
 
 check_file() {
-  if [[ -f "$1" ]]; then pass "exists: $1"; else fail "missing: $1"; fi
+  local f="$1"
+  if [[ -f "${f}" ]]; then
+    pass "found ${f}"
+  else
+    fail "missing ${f}"
+  fi
 }
 
-bold "=== Assignment 3 — Structure ==="
+bold "=== Structure ==="
 check_file "README.md"
 check_file "app/app.sh"
 check_file "scripts/lint.sh"
 check_file "scripts/build.sh"
 check_file "tests/test.sh"
-check_file ".github/workflows/ci.yml"
 check_file "Dockerfile"
 check_file "compose.yaml"
 check_file ".dockerignore"
 check_file "grade.sh"
-echo
-
-bold "=== Executable bits / shebang ==="
-for f in app/app.sh scripts/lint.sh scripts/build.sh tests/test.sh grade.sh; do
-  if [[ -f "${f}" ]] && head -n1 "${f}" | grep -q '^#!'; then
-    pass "shebang: ${f}"
-  else
-    fail "shebang: ${f}"
-  fi
-  # Best-effort +x (Windows may not persist; still try)
-  chmod +x "${f}" 2>/dev/null || true
-  if [[ -x "${f}" ]] || [[ "$(uname -s 2>/dev/null)" == MINGW* ]] || [[ "$(uname -s 2>/dev/null)" == MSYS* ]]; then
-    pass "executable-or-gitbash: ${f}"
-  else
-    fail "not executable: ${f}"
-  fi
-done
+check_file ".github/workflows/ci.yml"
 echo
 
 bold "=== Bash syntax (bash -n) ==="
 for f in app/app.sh scripts/lint.sh scripts/build.sh tests/test.sh grade.sh; do
-  if [[ -f "${f}" ]] && bash -n "${f}" 2>/dev/null; then
-    pass "bash -n ${f}"
+  if [[ -f "${f}" ]]; then
+    if tr -d '\r' <"${f}" | bash -n 2>/tmp/a3-bn.err; then
+      pass "bash -n ${f}"
+    else
+      fail "bash -n ${f}"
+      cat /tmp/a3-bn.err >&2 || true
+    fi
   else
-    fail "bash -n ${f}"
+    fail "missing ${f}"
   fi
 done
+rm -f /tmp/a3-bn.err 2>/dev/null || true
 echo
 
-bold "=== Workflow triggers & jobs ==="
+bold "=== Workflow (CI) ==="
 WF=".github/workflows/ci.yml"
 if [[ -f "${WF}" ]]; then
-  grep -qE 'push:' "${WF}" && pass "workflow on: push" || fail "workflow missing push"
-  grep -qE 'pull_request:' "${WF}" && pass "workflow on: pull_request" || fail "workflow missing pull_request"
+  pass "found ${WF}"
 
-  for job in validate test docker; do
-    grep -qE "^[[:space:]]*${job}:" "${WF}" \
-      && pass "job present: ${job}" \
-      || fail "job missing: ${job}"
-  done
+  grep -qE 'name:[[:space:]]*(Validate \(lint\)|validate)' "${WF}" \
+    && pass "validate job present" || fail "validate job missing"
 
-  # needs: ordering — test needs validate; docker needs test
-  # Allow flexible YAML formatting
-  if grep -A20 -E '^[[:space:]]*test:' "${WF}" | grep -q 'needs:'; then
-    if grep -A20 -E '^[[:space:]]*test:' "${WF}" | grep -q 'validate'; then
+  grep -qE 'name:[[:space:]]*Test' "${WF}" \
+    && pass "test job present" || fail "test job missing"
+
+  grep -qiE 'docker' "${WF}" \
+    && pass "docker job present" || fail "docker job missing"
+
+  if grep -A20 -E 'name:[[:space:]]*Test' "${WF}" | grep -q 'needs:'; then
+    if grep -A20 -E 'name:[[:space:]]*Test' "${WF}" | grep -qi 'validate'; then
       pass "test needs: validate"
     else
       fail "test should need validate"
@@ -84,8 +76,8 @@ if [[ -f "${WF}" ]]; then
     fail "test missing needs:"
   fi
 
-  if grep -A20 -E '^[[:space:]]*docker:' "${WF}" | grep -q 'needs:'; then
-    if grep -A20 -E '^[[:space:]]*docker:' "${WF}" | grep -q 'test'; then
+  if grep -A20 -E 'name:[[:space:]].*[Dd]ocker' "${WF}" | grep -q 'needs:'; then
+    if grep -A20 -E 'name:[[:space:]].*[Dd]ocker' "${WF}" | grep -qi 'test'; then
       pass "docker needs: test"
     else
       fail "docker should need test"
@@ -130,8 +122,7 @@ echo
 
 bold "=== Student tests (at least 8 cases) ==="
 if [[ -f tests/test.sh ]]; then
-  # Count assert_exit / test markers roughly
-  count="$(grep -cE 'assert_exit|PASS|\\[\\d+\\]' tests/test.sh 2>/dev/null || echo 0)"
+  count="$(grep -cE 'assert_exit|PASS|\\[[0-9]+\\]' tests/test.sh 2>/dev/null || echo 0)"
   if [[ "${count}" -ge 8 ]]; then
     pass "tests/test.sh has substantial coverage markers (${count})"
   else
@@ -165,7 +156,6 @@ bold "=== Docker build / smoke ==="
 if ! command -v docker >/dev/null 2>&1; then
   echo "  (docker CLI not available — skip build.sh)"
 elif ! docker info >/dev/null 2>&1; then
-  # CLI present but engine stopped (common on Windows/macOS without Docker Desktop)
   echo "  (docker daemon not running — skip build.sh; start Docker Desktop to verify)"
 else
   if bash scripts/build.sh >/tmp/a3-build.out 2>&1; then

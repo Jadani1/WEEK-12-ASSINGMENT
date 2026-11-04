@@ -7,6 +7,6 @@ services:
   devops:
     build: .
     image: devops-tool
-    entrypoint: ["/app/app.sh"]
+    container_name: devops-tool
     command: ["help"]
     network_mode: bridge

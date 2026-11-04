@@ -21,9 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Avoid post-job credential cleanup noise (git exit 128 warnings)
           persist-credentials: false
-          # Nested assignment dirs may be gitlinks; do not recurse
           submodules: false
 
       - name: Make scripts executable

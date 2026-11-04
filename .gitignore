@@ -1,0 +1,19 @@
+# Local / agent dumps
+.a3_full_dump/
+.a3_full_dump/**
+
+# Nested git metadata (must not be committed as gitlinks)
+**/.git/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Logs and temp
+*.log
+/tmp/
+*.out

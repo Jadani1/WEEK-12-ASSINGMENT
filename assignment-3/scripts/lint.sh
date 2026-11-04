@@ -75,7 +75,7 @@ if command -v shellcheck >/dev/null 2>&1; then
   for s in app/app.sh scripts/lint.sh scripts/build.sh tests/test.sh grade.sh; do
     [[ -f "${s}" ]] || continue
     # Optional tool: report findings as warnings only (do not fail CI)
-    if shellcheck -x "${s}" > /tmp/lint-sc.out 2>&1; then
+    if shellcheck -x -e SC1091,SC2034,SC2086,SC2002 "${s}" >/tmp/lint-sc.out 2>&1; then
       pass "shellcheck ${s}"
     else
       warn "shellcheck ${s} (optional — not failing CI)"

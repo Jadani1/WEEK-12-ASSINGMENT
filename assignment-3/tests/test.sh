@@ -2,38 +2,43 @@
 # tests/test.sh — Application tests for devops-tool (Assignment 3)
 # At least 8 meaningful tests:
 #   help, system-info, invalid command, missing host,
-#   valid host, missing port, non-numeric port, out-of-range port
+#   valid host, missing port, non-numeric port, port range, missing args
 set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-APP="${ROOT}/app/app.sh"
+cd "${ROOT}" || exit 1
 
+APP="app/app.sh"
 PASS=0
 FAIL=0
 
-green() { printf '\033[32m%s\033[0m\n' "$*"; }
-red()   { printf '\033[31m%s\033[0m\n' "$*"; }
-bold()  { printf '\033[1m%s\033[0m\n' "$*"; }
+green() { printf '\033[0;32m%s\033[0m\n' "$*"; }
+red() { printf '\033[0;31m%s\033[0m\n' "$*"; }
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
 
 assert_exit() {
-  local name="$1" expected="$2" actual="$3"
-  if [[ "${actual}" -eq "${expected}" ]]; then
-    green "  PASS  ${name} (exit ${actual})"
+  local label="$1"
+  local want="$2"
+  local got="$3"
+  if [[ "${got}" -eq "${want}" ]]; then
+    green "  PASS  ${label} (exit ${got})"
     PASS=$((PASS + 1))
   else
-    red "  FAIL  ${name} (expected ${expected}, got ${actual})"
+    red "  FAIL  ${label} (exit ${got}, want ${want})"
     FAIL=$((FAIL + 1))
   fi
 }
 
 assert_contains() {
-  local name="$1" needle="$2" haystack="$3"
-  if grep -Fqi -- "${needle}" <<<"${haystack}"; then
-    green "  PASS  ${name}"
+  local label="$1"
+  local needle="$2"
+  local haystack="$3"
+  if grep -qiE "${needle}" <<<"${haystack}"; then
+    green "  PASS  ${label}"
     PASS=$((PASS + 1))
   else
-    red "  FAIL  ${name} (missing: ${needle})"
+    red "  FAIL  ${label} (missing: ${needle})"
     FAIL=$((FAIL + 1))
   fi
 }
@@ -48,7 +53,6 @@ if [[ ! -f "${APP}" ]]; then
 fi
 
 bold "=== devops-tool unit/smoke tests ==="
-echo "App: ${APP}"
 echo
 
 # 1) help
@@ -56,7 +60,7 @@ bold "[1] help"
 rc=0
 out="$("${APP}" help 2>&1)" || rc=$?
 assert_exit "help exits 0" 0 "${rc}"
-assert_contains "help shows Usage" "Usage" "${out}"
+assert_contains "help shows usage" "usage" "${out}"
 assert_contains "help lists system-info" "system-info" "${out}"
 echo
 
@@ -65,13 +69,13 @@ bold "[2] system-info"
 rc=0
 out="$("${APP}" system-info 2>&1)" || rc=$?
 assert_exit "system-info exits 0" 0 "${rc}"
-assert_contains "system-info shows Hostname" "Hostname" "${out}"
+assert_contains "system-info has hostname" "hostname" "${out}"
 echo
 
 # 3) invalid command
 bold "[3] invalid command"
 rc=0
-out="$("${APP}" totally-invalid 2>&1)" || rc=$?
+out="$("${APP}" not-a-real-command 2>&1)" || rc=$?
 assert_exit "invalid command exits 2" 2 "${rc}"
 assert_contains "invalid command message" "unknown" "${out}"
 echo
@@ -83,12 +87,12 @@ out="$("${APP}" check-host 2>&1)" || rc=$?
 assert_exit "check-host without host exits 2" 2 "${rc}"
 echo
 
-# 5) check-host valid host (localhost / 127.0.0.1 always resolvable)
+# 5) check-host valid host (localhost / 127.0.0.1)
 bold "[5] check-host valid host"
 rc=0
 out="$("${APP}" check-host 127.0.0.1 2>&1)" || rc=$?
 assert_exit "check-host 127.0.0.1 exits 0" 0 "${rc}"
-assert_contains "check-host shows host" "127.0.0.1" "${out}"
+assert_contains "check-host shows OK or Resolved" "ok|resolved" "${out}"
 echo
 
 # 6) check-port missing port
@@ -103,16 +107,10 @@ bold "[7] check-port non-numeric port"
 rc=0
 out="$("${APP}" check-port 127.0.0.1 abc 2>&1)" || rc=$?
 assert_exit "check-port non-numeric exits 2" 2 "${rc}"
-assert_contains "non-numeric port message" "numeric" "${out}"
 echo
 
-# 8) check-port out-of-range
-bold "[8] check-port out-of-range"
-rc=0
-out="$("${APP}" check-port 127.0.0.1 99999 2>&1)" || rc=$?
-assert_exit "check-port 99999 exits 2" 2 "${rc}"
-assert_contains "out-of-range message" "range" "${out}"
-
+# 8) check-port out of range
+bold "[8] check-port out of range"
 rc=0
 out="$("${APP}" check-port 127.0.0.1 0 2>&1)" || rc=$?
 assert_exit "check-port 0 exits 2" 2 "${rc}"

@@ -5,23 +5,19 @@
 #   ./app/app.sh check-host <host>
 #   ./app/app.sh check-port <host> <port>
 #   ./app/app.sh help
-set -uo pipefail
+set -u
 
-APP_NAME="devops-tool"
-VERSION="1.0.0"
+APP_NAME="$(basename "${0}")"
 
 usage() {
   cat <<EOF
-${APP_NAME} v${VERSION}
-
-Usage:
-  ${APP_NAME} <command> [arguments]
+Usage: ${APP_NAME} <command> [args]
 
 Commands:
-  system-info              Display system information
-  check-host <host>        Resolve / check a host
-  check-port <host> <port> Validate port and check TCP connectivity
-  help                     Display this usage message
+  system-info                 Show system diagnostics
+  check-host <host>           Resolve / check a host
+  check-port <host> <port>    Check TCP port reachability
+  help                        Display this usage message
 
 Exit codes:
   0  success
@@ -52,47 +48,41 @@ cmd_system_info() {
   if [[ -r /etc/os-release ]]; then
     # shellcheck disable=SC1091
     . /etc/os-release
-    os_val="${PRETTY_NAME:-${NAME:-Linux} ${VERSION_ID:-}}"
+    os_val="${PRETTY_NAME:-${NAME:-unknown}}"
   else
-    os_val="$(uname -s 2>/dev/null || echo Linux)"
+    os_val="$(uname -s 2>/dev/null || echo unknown)"
   fi
 
   kernel_val="$(uname -r 2>/dev/null || echo unknown)"
-
-  if [[ -r /proc/uptime ]]; then
-    local secs d h m
-    secs="$(awk '{print int($1)}' /proc/uptime)"
-    d=$((secs / 86400))
-    h=$(((secs % 86400) / 3600))
-    m=$(((secs % 3600) / 60))
-    uptime_val="${d}d ${h}h ${m}m"
-  else
-    uptime_val="$(uptime -p 2>/dev/null || uptime 2>/dev/null || echo unknown)"
-  fi
+  uptime_val="$(uptime -p 2>/dev/null || uptime 2>/dev/null || echo unknown)"
 
   if [[ -r /proc/cpuinfo ]]; then
     cpu_val="$(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | cut -d: -f2- | sed 's/^ //')"
-    [[ -z "${cpu_val}" ]] && cpu_val="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null || echo '?') CPU(s)"
+    if [[ -z "${cpu_val}" ]]; then
+      cpu_val="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null || echo '?') CPU(s)"
+    fi
   else
     cpu_val="$(nproc 2>/dev/null || echo unknown) CPU(s)"
   fi
 
+  mem_total="unknown"
+  mem_avail="unknown"
+  mem_used="unknown"
   if [[ -r /proc/meminfo ]]; then
     mem_total="$(awk '/MemTotal:/ {print $2}' /proc/meminfo)"
     mem_avail="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
     if [[ -n "${mem_total}" && -n "${mem_avail}" ]]; then
       mem_used=$((mem_total - mem_avail))
-    else
-      mem_total=0
-      mem_used=0
+      mem_total="${mem_total} kB"
+      mem_avail="${mem_avail} kB"
+      mem_used="${mem_used} kB"
     fi
-  else
-    mem_total=0
-    mem_used=0
   fi
 
   cat <<EOF
-========== System Information ==========
+========================================
+System Information
+========================================
 Hostname         : ${hostname_val}
 User             : ${user_val}
 Date/Time        : ${datetime_val}
@@ -100,8 +90,9 @@ OS               : ${os_val}
 Kernel           : ${kernel_val}
 Uptime           : ${uptime_val}
 CPU              : ${cpu_val}
-Memory Total     : ${mem_total} kB
-Memory Used      : ${mem_used} kB
+Memory Total     : ${mem_total}
+Memory Available : ${mem_avail}
+Memory Used      : ${mem_used}
 ========================================
 EOF
   return 0
@@ -110,6 +101,7 @@ EOF
 # ---------- check-host ----------
 cmd_check_host() {
   local host="${1:-}"
+  local resolved=""
 
   if [[ -z "${host}" ]]; then
     err "check-host requires a host argument"
@@ -122,18 +114,14 @@ cmd_check_host() {
     return 2
   fi
 
-  local resolved=""
   echo "========== Host Check =========="
   echo "Host: ${host}"
 
   if command -v getent >/dev/null 2>&1; then
-    resolved="$(getent ahosts "${host}" 2>/dev/null | awk '{print $1; exit}')"
+    resolved="$(getent hosts "${host}" 2>/dev/null | awk '{print $1; exit}')"
   fi
   if [[ -z "${resolved}" ]] && command -v dig >/dev/null 2>&1; then
     resolved="$(dig +short "${host}" A 2>/dev/null | head -n1)"
-  fi
-  if [[ -z "${resolved}" ]] && command -v host >/dev/null 2>&1; then
-    resolved="$(host "${host}" 2>/dev/null | awk '/has address/ {print $4; exit}')"
   fi
   if [[ -z "${resolved}" ]] && command -v nslookup >/dev/null 2>&1; then
     resolved="$(nslookup "${host}" 2>/dev/null | awk '/^Address: / && NR>2 {print $2; exit}')"
@@ -142,6 +130,7 @@ cmd_check_host() {
     resolved="${host}"
   fi
   if [[ -z "${resolved}" ]] && [[ "${host}" =~ : ]]; then
+    # bare IPv6-ish — accept as already resolved
     resolved="${host}"
   fi
 
@@ -152,8 +141,8 @@ cmd_check_host() {
     return 0
   fi
 
-  echo "Resolved: (failed)"
-  echo "Result  : FAILURE"
+  echo "Resolved: (none)"
+  echo "Result  : FAIL (could not resolve)"
   echo "================================"
   return 1
 }
@@ -162,6 +151,8 @@ cmd_check_host() {
 cmd_check_port() {
   local host="${1:-}"
   local port="${2:-}"
+  local port_num
+  local ok=1
 
   if [[ -z "${host}" ]]; then
     err "check-port requires a host argument"
@@ -180,33 +171,30 @@ cmd_check_port() {
     return 2
   fi
 
-  # Port must be numeric
   if [[ ! "${port}" =~ ^[0-9]+$ ]]; then
     err "port must be numeric: ${port}"
     return 2
   fi
 
-  # Port range 1–65535 (leading zeros still numeric; strip for range check)
-  local port_num=$((10#${port}))
+  port_num=$((10#${port}))
   if (( port_num < 1 || port_num > 65535 )); then
     err "port out of range (1-65535): ${port}"
     return 2
   fi
 
   echo "========== Port Check =========="
-  echo "Host: ${host}"
-  echo "Port: ${port_num}"
+  echo "Host   : ${host}"
+  echo "Port   : ${port_num}"
 
-  local ok=1
-
-  # Prefer bash /dev/tcp when available (bash built-in)
-  if (echo >/dev/tcp/"${host}"/"${port_num}") >/dev/null 2>&1; then
+  # Prefer bash /dev/tcp when available
+  # shellcheck disable=SC2091,SC2039
+  if (echo >"/dev/tcp/${host}/${port_num}") >/dev/null 2>&1; then
     ok=0
   elif command -v nc >/dev/null 2>&1; then
     if nc -z -w 3 "${host}" "${port_num}" >/dev/null 2>&1; then
       ok=0
     fi
-  elif command -v timeout >/dev/null 2>&1 && command -v bash >/dev/null 2>&1; then
+  elif command -v timeout >/dev/null 2>&1; then
     if timeout 3 bash -c "echo >/dev/tcp/${host}/${port_num}" >/dev/null 2>&1; then
       ok=0
     fi
@@ -220,7 +208,7 @@ cmd_check_port() {
   fi
 
   echo "TCP    : closed / unreachable"
-  echo "Result : FAILURE"
+  echo "Result : FAIL"
   echo "==============================="
   return 1
 }
@@ -239,20 +227,16 @@ main() {
 
   case "${cmd}" in
     system-info)
-      cmd_system_info "$@"
-      exit $?
+      cmd_system_info
       ;;
     check-host)
-      cmd_check_host "$@"
-      exit $?
+      cmd_check_host "${1:-}"
       ;;
     check-port)
-      cmd_check_port "$@"
-      exit $?
+      cmd_check_port "${1:-}" "${2:-}"
       ;;
     help|-h|--help)
       usage
-      exit 0
       ;;
     *)
       err "unknown command: ${cmd}"
